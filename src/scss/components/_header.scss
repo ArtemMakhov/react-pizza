@@ -27,6 +27,10 @@
 
     p {
       color: #7b7b7b;
+
+      @media (max-width: 520px) {
+        display: none;
+      }
     }
   }
 }
