@@ -1,0 +1,38 @@
+.root {
+  position: relative;
+}
+
+.imput {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  padding-left: 40px;
+  width: 400px;
+  border-radius: 10px;
+  font-size: 16px;
+
+  &:focus {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+  position: absolute;
+  top: 15px;
+  left: 10px;
+}
+.clearIcon {
+  cursor: pointer;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  opacity: 0.4;
+  top: 15px;
+  right: 8px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
