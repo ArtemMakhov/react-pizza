@@ -1,5 +1,3 @@
-// import { useState } from "react";
-
 export const Categories = ({ value, onClickCategory }) => {
   const categories = [
     "Все",

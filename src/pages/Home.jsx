@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import { SearchContext } from "../App";
 
 import { Categories } from "../components/Categories";
 import { Sort } from "../components/Sort";
@@ -8,7 +10,9 @@ import { Pagination } from "../components/Pagination";
 
 const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
+  const { searchValue } = useContext(SearchContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -31,7 +35,7 @@ export const Home = ({ searchValue }) => {
     const sort = sortType.sortProperty;
 
     fetch(
-      `${BASE_URL}page=${currentPage}&limit=4${category}&sortBy=${sort}&order=desc${search}`
+      `${BASE_URL}page=${currentPage}&limit=4&${category}&sortBy=${sort}&order=desc${search}`
     )
       .then((res) => {
         return res.json();
