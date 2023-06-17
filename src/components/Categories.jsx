@@ -1,4 +1,4 @@
-export const Categories = ({ value, onClickCategory }) => {
+export const Categories = ({ categoryId, onChangeCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -14,8 +14,8 @@ export const Categories = ({ value, onClickCategory }) => {
         {categories.map((category, i) => (
           <li
             key={i}
-            onClick={() => onClickCategory(i)}
-            className={value === i ? "active" : ""}
+            onClick={() => onChangeCategory(i)}
+            className={categoryId === i ? "active" : ""}
           >
             {category}
           </li>

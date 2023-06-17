@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryId } from "../redux/slices/filterSlice";
+
 import { SearchContext } from "../App";
 
 import { Categories } from "../components/Categories";
@@ -13,26 +16,29 @@ const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 export const Home = () => {
   const { searchValue } = useContext(SearchContext);
 
+  const dispatch = useDispatch();
+  const { categoryId, sort } = useSelector((state) => state.filter);
+  const sortType = sort.sortProperty;
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
 
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
 
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
   useEffect(() => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
-    const sort = sortType.sortProperty;
+    const sort = sortType;
 
     fetch(
       `${BASE_URL}page=${currentPage}&limit=4&${category}&sortBy=${sort}&order=desc${search}`
@@ -55,10 +61,10 @@ export const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories
-          value={categoryId}
-          onClickCategory={(id) => setCategoryId(id)}
+          categoryId={categoryId}
+          onChangeCategory={onChangeCategory}
         />
-        <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>
