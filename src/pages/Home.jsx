@@ -1,8 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import qs from "qs";
 import axios from "axios";
 
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
+import {
+  setCategoryId,
+  setCurrentPage,
+  // setFilters,
+} from "../redux/slices/filterSlice";
 
 import { SearchContext } from "../App";
 
@@ -16,7 +22,7 @@ const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 
 export const Home = () => {
   const { searchValue } = useContext(SearchContext);
-
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
@@ -34,9 +40,27 @@ export const Home = () => {
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
   };
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page) => {
+    dispatch(setCurrentPage(page));
   };
+
+  // useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1));
+  //     console.log("params", params);
+  //     const sort = sortList.find(
+  //       (obj) => obj.sortProperty === params.sortProperty
+  //     );
+
+  //     console.log("sort", sort);
+  //     dispatch(
+  //       setFilters({
+  //         ...params,
+  //         sort,
+  //       })
+  //     );
+  //   }
+  // }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,7 +83,18 @@ export const Home = () => {
       });
 
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, currentPage, searchValue, sortType]);
+
+  // useEffect(() => {
+  //   const queryString = qs.stringify({
+  //     sortProperty: sort.sortProperty,
+  //     categoryId,
+  //     currentPage,
+  //   });
+  //   console.log("queryString", queryString);
+
+  //   navigate(`?${queryString}`);
+  // }, [categoryId, currentPage, navigate, sort.sortProperty]);
 
   return (
     <div className="container">
