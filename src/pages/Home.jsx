@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 import { Categories } from "../components/Categories";
 import { Sort } from "../components/Sort";
 import { PizzaBlock } from "../components/PizzaBlock";
@@ -11,6 +11,7 @@ import { Pagination } from "../components/Pagination";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { pizzaSelector } from "../redux/selectors/pizzaSelector";
 import { filterSelector } from "../redux/selectors/filterSelector";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 
@@ -22,7 +23,11 @@ export const Home = () => {
     useSelector(filterSelector);
   const sortType = sort.sortProperty;
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
