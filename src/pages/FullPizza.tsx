@@ -3,8 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const FullPizza = () => {
-  const [pizza, setPizza] = useState();
+type PizzaType = {
+  imageUrl: string;
+  title: string;
+  price: number;
+};
+
+export const FullPizza: React.FC = () => {
+  const [pizza, setPizza] = useState<PizzaType>();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,7 +31,7 @@ export const FullPizza = () => {
   }, [id, navigate]);
 
   if (!pizza) {
-    return "Loading...";
+    return <>Loading...</>;
   }
   return (
     <div className="container">
