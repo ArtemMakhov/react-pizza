@@ -1,4 +1,12 @@
-export const Categories = ({ categoryId, onChangeCategory }) => {
+type PropsType = {
+  categoryId: number;
+  onChangeCategory: any;
+};
+
+export const Categories: React.FC<PropsType> = ({
+  categoryId,
+  onChangeCategory,
+}) => {
   const categories = [
     "Все",
     "Мясные",

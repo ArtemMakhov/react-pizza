@@ -15,7 +15,7 @@ import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   const { items, status } = useSelector(pizzaSelector);
@@ -23,7 +23,7 @@ export const Home = () => {
     useSelector(filterSelector);
   const sortType = sort.sortProperty;
 
-  const pizzas = items.map((obj) => (
+  const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
     </Link>
@@ -32,10 +32,10 @@ export const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onChangePage = (page) => {
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
@@ -44,7 +44,10 @@ export const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
     const sort = sortType;
 
-    dispatch(fetchPizzas({ BASE_URL, currentPage, category, sort, search }));
+    dispatch(
+      //@ts-ignore
+      fetchPizzas({ BASE_URL, currentPage, category, sort, search })
+    );
 
     window.scrollTo(0, 0);
   };
