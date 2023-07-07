@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Categories } from "../components/Categories";
 import { Sort } from "../components/Sort";
@@ -12,22 +11,19 @@ import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { pizzaSelector } from "../redux/selectors/pizzaSelector";
 import { filterSelector } from "../redux/selectors/filterSelector";
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
+import { useAppDispatch } from "../redux/store";
 
 const BASE_URL = "https://630b4196ed18e82516507688.mockapi.io/pizzas?";
 
 export const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { items, status } = useSelector(pizzaSelector);
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(filterSelector);
   const sortType = sort.sortProperty;
 
-  const pizzas = items.map((obj: any) => (
-    <Link key={obj.id} to={`/pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
-  ));
+  const pizzas = items.map((obj: any) => <PizzaBlock {...obj} />);
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -45,8 +41,13 @@ export const Home: React.FC = () => {
     const sort = sortType;
 
     dispatch(
-      //@ts-ignore
-      fetchPizzas({ BASE_URL, currentPage, category, sort, search })
+      fetchPizzas({
+        BASE_URL,
+        currentPage: String(currentPage),
+        category,
+        sort,
+        search,
+      })
     );
 
     window.scrollTo(0, 0);

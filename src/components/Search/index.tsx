@@ -29,7 +29,7 @@ export const Search: React.FC = () => {
   // );
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    dispatch(setSearchValue(e));
+    dispatch(setSearchValue(e.target.value));
     // updateSearchValue(e.target.value);
   };
   return (
