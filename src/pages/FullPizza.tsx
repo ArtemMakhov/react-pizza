@@ -9,7 +9,7 @@ type PizzaType = {
   price: number;
 };
 
-export const FullPizza: React.FC = () => {
+const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<PizzaType>();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -41,3 +41,5 @@ export const FullPizza: React.FC = () => {
     </div>
   );
 };
+
+export default FullPizza;
