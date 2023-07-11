@@ -21,16 +21,9 @@ export const Search: React.FC = () => {
     inputRef.current?.focus();
   };
 
-  // const updateSearchValue = useCallback(
-  //   debounce((str) => {
-  //     dispatch(setSearchValue(str));
-  //   }, 300),
-  //   []
-  // );
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     dispatch(setSearchValue(e.target.value));
-    // updateSearchValue(e.target.value);
   };
   return (
     <div className={styles.root}>
