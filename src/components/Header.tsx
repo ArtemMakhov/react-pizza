@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 import { Search } from "./Search";
 import { cartSelector } from "../redux/selectors/cartSelector";
-import { useEffect, useRef } from "react";
 
 export const Header = () => {
   const { totalPrice, items } = useSelector(cartSelector);

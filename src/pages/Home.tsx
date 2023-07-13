@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { Categories } from "../components/Categories";
-import { Sort } from "../components/Sort";
-import { PizzaBlock } from "../components/PizzaBlock";
-import { Skeleton } from "../components/PizzaBlock/Skeleton";
-import { Pagination } from "../components/Pagination";
+import {
+  Categories,
+  Sort,
+  PizzaBlock,
+  Skeleton,
+  Pagination,
+} from "../components";
 
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { pizzaSelector } from "../redux/selectors/pizzaSelector";
@@ -23,7 +25,7 @@ export const Home: React.FC = () => {
     useSelector(filterSelector);
   const sortType = sort.sortProperty;
 
-  const pizzas = items.map((obj: any) => <PizzaBlock {...obj} />);
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
